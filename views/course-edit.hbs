@@ -1,0 +1,28 @@
+
+<h1>{{course.title}}</h1>
+
+<form action="/courses/edit" method="post">
+    <div class="input-field">
+        <input placeholder="Course name" id="name" name="title" type="text" class="validate" required value="{{course.title}}">
+        <label for="first_name">Course name</label>
+        <span class="helper-text" data-error="wrong" data-success="right"></span>
+    </div>
+
+    <div class="input-field">
+        <input placeholder="Price" id="price" name="price" type="number" class="validate" required min="1" value="{{course.price}}">
+        <label for="first_name">Price</label>
+        <span class="helper-text" data-error="wrong" data-success="right"></span>
+    </div>
+
+    <div class="input-field">
+        <input placeholder="url image" id="img" name="img" type="text" class="validate" required value="{{course.img}}">
+        <label for="first_name">Url image of course</label>
+        <span class="helper-text" data-error="wrong" data-success="right"></span>
+    </div>
+
+    <input type="hidden" name="id" value="{{course.id}}">
+
+    <button class="btn waves-effect waves-light" type="submit" name="action">Edit</button>
+
+</form>
+<a href="/">home</a>
