@@ -1,0 +1,27 @@
+<h1>{{title}}</h1>
+
+{{#if orders.length}}
+    <div class="row">
+    {{#each orders}}
+            <div class="col s12 m12">
+                <div class="card order-card">
+                    <div class="card-content">
+                        <span class="card-title">Order ID: {{_id}}</span>
+                        <p>Date: <span class="date">{{date}}</span></p>
+                        <p>{{ user.userId.name }}</p>
+                        <p>{{ user.userId.email }}</p>
+                        <ol>
+                            {{#each courses}}
+                                <li><strong>{{course.title}}</strong> <span class="price">{{course.price}}</span> <span>x{{count}}</span></li>
+                            {{/each}}
+                        </ol>
+                        <hr>
+                        <p>Price: <span class="price">{{ price }}</span></p>
+                    </div>
+                </div>
+            </div>
+    {{/each}}
+    </div>
+{{else}}
+    <p>No orders</p>
+{{/if}}

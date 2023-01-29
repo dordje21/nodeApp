@@ -5,26 +5,41 @@ const priceFormat = (price) => {
     }).format(price)
 }
 
+const toDate = date => {
+    return new Intl.DateTimeFormat('en-EN', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    }).format(new Date(date))
+}
+
 document.querySelectorAll('.price').forEach(price => {
     price.textContent = priceFormat(price.textContent)
 })
 
+document.querySelectorAll('.date').forEach(node => {
+    node.textContent = toDate(node.textContent)
+})
 
-const $card = document.querySelector('#card')
 
-if ($card) {
-    $card.addEventListener('click', event => {
+const $cart = document.querySelector('#cart')
+
+if ($cart) {
+    $cart.addEventListener('click', event => {
         if (event.target.classList.contains('js-remove')) {
             const id = event.target.dataset.id
             console.log(id)
 
-            fetch('card/remove/' + id, {
+            fetch('cart/remove/' + id, {
                 method: 'delete'
             }).then(res => res.json())
-                .then(card => {
-                    console.log(card)
-                    if (card.courses.length) {
-                        const html = card.courses.map(c => {
+                .then(cart => {
+                    console.log(cart)
+                    if (cart.courses.length) {
+                        const html = cart.courses.map(c => {
                             return `<tr>
                                 <td>${c.title}</td>
                                 <td>${c.count}</td>
@@ -34,10 +49,10 @@ if ($card) {
                                 </td>
                             </tr>`
                         }).join('')
-                        $card.querySelector('tbody').innerHTML = html;
-                        $card.querySelector('.card-price').innerHTML = priceFormat(card.price);
+                        $cart.querySelector('tbody').innerHTML = html;
+                        $cart.querySelector('.cart-price').innerHTML = priceFormat(cart.price);
                     } else {
-                        $card.innerHTML = 'Cart id empty!'
+                        $cart.innerHTML = 'Cart is empty!'
                     }
                 })
         }

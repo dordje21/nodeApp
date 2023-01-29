@@ -25,4 +25,10 @@
     <button class="btn waves-effect waves-light" type="submit" name="action">Edit</button>
 
 </form>
-<a href="/">home</a>
+
+<form action="/courses/delete" method="post">
+    <input type="hidden" name="id" value="{{ course.id }}">
+    <button class="btn red">
+        Delete
+    </button>
+</form>
