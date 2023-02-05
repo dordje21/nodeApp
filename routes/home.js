@@ -9,4 +9,14 @@ router.get('/',(req, res) => {
     })
 })
 
+router.post('/', (req, res) => {
+    const name = req.body.name;
+
+    res.render('index', {
+        title: 'Home',
+        isHome: true,
+        name: `Hello ${name}`
+    })
+})
+
 module.exports = router

@@ -1,6 +1,7 @@
 const {Router} = require('express')
 const Courses = require('../models/course')
 const router = Router();
+const auth = require('../middleware/auth')
 
 complitPrice = (coursesClone) => {
     return coursesClone.reduce((total, course) => {
@@ -8,14 +9,14 @@ complitPrice = (coursesClone) => {
     }, 0)
 }
 
-router.post('/add', async (req, res) => {
+router.post('/add', auth, async (req, res) => {
     const course = await Courses.findById(req.body.id)
     await req.user.addToCart(course)
     // await Cart.add(course)
     res.redirect('/cart')
 })
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     const user = await req.user
     const userCourses = user.cart.items
     const allCourses = await Courses.find();
@@ -43,7 +44,7 @@ router.get('/', async (req, res) => {
     })
 })
 
-router.delete('/remove/:id', async (req, res) => {
+router.delete('/remove/:id', auth, async (req, res) => {
     // const card = await Cart.remove(req.params.id)
     await req.user.removeFromCart(req.params.id)
 
